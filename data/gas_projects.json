@@ -1,0 +1,50 @@
+[
+  {
+    "id": "form-automation",
+    "title": "フォーム自動回答ワークフロー",
+    "summary": "Google フォームの回答を整理し、定型レポートを自動生成するGASです。",
+    "description": "Google フォームに回答が届くたびに、スプレッドシートへの転記、テンプレートドキュメントからのPDF生成、Slackへの通知送信までをワンストップで処理します。紙の報告書作成をなくし、担当者の作業を大幅に削減できます。",
+    "features": [
+      "フォーム回答をスプレッドシートへ自動転記",
+      "テンプレートからPDFを生成してGoogleドライブに保存",
+      "処理結果をSlackチャンネルへ通知"
+    ],
+    "tags": ["フォーム", "自動化", "Slack連携"],
+    "script_url": "https://script.google.com/",
+    "repository_url": "https://github.com/example/form-automation",
+    "updated_at": "2024-01-15",
+    "created_at": "2023-12-10"
+  },
+  {
+    "id": "spreadsheet-dashboard",
+    "title": "Spreadsheet KPI ダッシュボード",
+    "summary": "営業KPIを集計して管理画面へ公開するダッシュボード自動更新GAS。",
+    "description": "Google スプレッドシートに蓄積した売上データから、部署別のKPIを自動集計し、Google スライドのダッシュボードを更新します。毎朝の進捗メールも自動配信するので情報共有が簡単です。",
+    "features": [
+      "スプレッドシートのデータを部署別に集計",
+      "Google スライドのダッシュボードを自動更新",
+      "Gmail で進捗レポートを自動送信"
+    ],
+    "tags": ["ダッシュボード", "レポート", "メール送信"],
+    "script_url": "https://script.google.com/",
+    "repository_url": "https://github.com/example/spreadsheet-dashboard",
+    "updated_at": "2024-02-07",
+    "created_at": "2024-01-20"
+  },
+  {
+    "id": "calendar-shift-manager",
+    "title": "カレンダーシフト管理",
+    "summary": "スタッフのシフト希望をGoogle カレンダーに自動反映するGAS。",
+    "description": "Google フォームで集めたシフト希望をスプレッドシートへ取り込み、承認済みの予定をGoogle カレンダーに登録します。未調整の枠は担当者へメールで通知し、調整の抜け漏れを防ぎます。",
+    "features": [
+      "フォームからの希望シフトをスプレッドシートへ登録",
+      "承認済みの予定のみカレンダーに自動反映",
+      "未確定の枠はメールで担当者にリマインド"
+    ],
+    "tags": ["カレンダー", "スケジュール", "通知"],
+    "script_url": "https://script.google.com/",
+    "repository_url": "https://github.com/example/calendar-shift-manager",
+    "updated_at": "2024-02-28",
+    "created_at": "2024-01-31"
+  }
+]
