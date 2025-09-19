@@ -65,6 +65,12 @@ $filteredProjects = array_values(array_filter($projects, static function (array 
 
 $totalCount = count($projects);
 $filteredCount = count($filteredProjects);
+$tagCount = count($availableTags);
+$latestProject = $projects[0] ?? null;
+$latestUpdated = $latestProject ? formatDate($latestProject['updated_at'] ?? $latestProject['created_at'] ?? '') : '';
+$featureCount = array_reduce($projects, static function (int $carry, array $item): int {
+    return $carry + count($item['features'] ?? []);
+}, 0);
 ?>
 <!doctype html>
 <html lang="ja">
@@ -75,75 +81,136 @@ $filteredCount = count($filteredProjects);
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header>
-    <div class="container">
-        <div>
-            <h1 class="site-title">Google Apps Script ギャラリー</h1>
-            <p class="site-description">自作したGASプロジェクトをまとめたショーケース。社内展開や再利用のヒントに。</p>
+<header class="site-header">
+    <div class="orb orb--one" aria-hidden="true"></div>
+    <div class="orb orb--two" aria-hidden="true"></div>
+    <div class="container header-inner">
+        <div class="brand">
+            <span class="brand-mark" aria-hidden="true">G</span>
+            <div>
+                <h1 class="site-title">Google Apps Script ギャラリー</h1>
+                <p class="site-description">社内展開や再利用のヒントになる自動化アイデアをワンストップで。</p>
+            </div>
+        </div>
+        <div class="header-links">
+            <a class="header-link" href="admin.php">管理ログイン</a>
         </div>
     </div>
 </header>
-<div class="container">
-    <section class="hero">
-        <h2>業務効率化のアイデア集</h2>
-        <p>Google Workspace を活用した自動化・通知・集計系のスクリプトを掲載しています。タグで用途別に絞り込み、詳細ページから構成や連携先を確認できます。</p>
-    </section>
-
-    <form class="search-bar" method="get" action="index.php">
-        <input type="search" name="q" placeholder="キーワードで検索" value="<?= h($searchQuery); ?>" aria-label="キーワード検索">
-        <?php if ($selectedTag !== ''): ?>
-            <input type="hidden" name="tag" value="<?= h($selectedTag); ?>">
-        <?php endif; ?>
-        <button type="submit">検索</button>
-    </form>
-
-    <?php if ($availableTags): ?>
-        <nav class="tag-filter" aria-label="タグフィルター">
-            <a href="index.php" class="<?= $selectedTag === '' ? 'active' : ''; ?>">すべて (<?= $totalCount; ?>)</a>
-            <?php foreach ($availableTags as $tag): ?>
-                <?php
-                $isActive = $selectedTag === $tag;
-                $query = http_build_query(array_filter([
-                    'q' => $searchQuery !== '' ? $searchQuery : null,
-                    'tag' => $tag,
-                ]));
-                ?>
-                <a href="index.php?<?= $query; ?>" class="<?= $isActive ? 'active' : ''; ?>">#<?= h($tag); ?></a>
-            <?php endforeach; ?>
-        </nav>
-    <?php endif; ?>
-
-    <p><?= $filteredCount; ?> 件 / <?= $totalCount; ?> 件を表示中</p>
-
-    <section class="card-grid" aria-live="polite">
-        <?php if ($filteredProjects): ?>
-            <?php foreach ($filteredProjects as $project): ?>
-                <article class="project-card">
+<main>
+    <div class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <p class="hero-badge">Automation × Collaboration</p>
+                <h2>業務をスマートに進化させる<br>GASテンプレート集</h2>
+                <p class="hero-text">Google Workspace を活用した自動化・通知・集計系のスクリプトを厳選。タグで用途別に絞り込み、詳細ページで構成や連携先をチェックできます。</p>
+                <div class="hero-actions">
+                    <a class="button primary" href="#projects">プロジェクトを探す</a>
+                    <a class="button ghost" href="https://script.google.com/" target="_blank" rel="noopener">GAS 公式サイト</a>
+                </div>
+                <dl class="hero-metrics">
                     <div>
-                        <h3><a href="detail.php?id=<?= urlencode($project['id']); ?>"><?= h($project['title']); ?></a></h3>
-                        <p><?= h($project['summary']); ?></p>
+                        <dt>掲載プロジェクト</dt>
+                        <dd><?= $totalCount; ?></dd>
                     </div>
-                    <?php if (!empty($project['tags'])): ?>
-                        <div class="tag-list">
-                            <?php foreach ($project['tags'] as $tag): ?>
-                                <span class="tag">#<?= h($tag); ?></span>
-                            <?php endforeach; ?>
+                    <div>
+                        <dt>登録タグ</dt>
+                        <dd><?= $tagCount; ?></dd>
+                    </div>
+                    <div>
+                        <dt>紹介している機能</dt>
+                        <dd><?= $featureCount; ?></dd>
+                    </div>
+                    <?php if ($latestUpdated !== ''): ?>
+                        <div>
+                            <dt>最新更新</dt>
+                            <dd><?= h($latestUpdated); ?></dd>
                         </div>
                     <?php endif; ?>
-                    <div class="card-footer">
-                        <span><?= h(formatDate($project['updated_at'] ?? $project['created_at'] ?? '')); ?> 更新</span>
-                        <a class="detail-link" href="detail.php?id=<?= urlencode($project['id']); ?>">詳細を見る</a>
-                    </div>
-                </article>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>条件に一致するGASが見つかりませんでした。</p>
-        <?php endif; ?>
-    </section>
+                </dl>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+                <div class="hero-visual__glow"></div>
+                <img src="assets/images/hero-illustration.svg" alt="GASのダッシュボードを表現したイラスト">
+            </div>
+        </section>
 
-    <footer style="margin-bottom: 3rem; text-align: center; color: #6c7a89;">
+        <section class="filters" aria-label="検索とフィルター">
+            <form class="search-bar" method="get" action="index.php">
+                <div class="search-field">
+                    <input type="search" name="q" placeholder="キーワードで検索" value="<?= h($searchQuery); ?>" aria-label="キーワード検索">
+                </div>
+                <?php if ($selectedTag !== ''): ?>
+                    <input type="hidden" name="tag" value="<?= h($selectedTag); ?>">
+                <?php endif; ?>
+                <button type="submit">検索</button>
+            </form>
+            <div class="filter-meta">
+                <p><?= $filteredCount; ?> 件 / <?= $totalCount; ?> 件を表示中</p>
+                <?php if ($selectedTag !== ''): ?>
+                    <a class="reset-filter" href="index.php">絞り込みを解除</a>
+                <?php endif; ?>
+            </div>
+            <?php if ($availableTags): ?>
+                <nav class="tag-filter" aria-label="タグフィルター">
+                    <a href="index.php" class="tag-pill <?= $selectedTag === '' ? 'active' : ''; ?>">すべて (<?= $totalCount; ?>)</a>
+                    <?php foreach ($availableTags as $tag): ?>
+                        <?php
+                        $isActive = $selectedTag === $tag;
+                        $query = http_build_query(array_filter([
+                            'q' => $searchQuery !== '' ? $searchQuery : null,
+                            'tag' => $tag,
+                        ]));
+                        ?>
+                        <a href="index.php?<?= $query; ?>" class="tag-pill <?= $isActive ? 'active' : ''; ?>">#<?= h($tag); ?></a>
+                    <?php endforeach; ?>
+                </nav>
+            <?php endif; ?>
+        </section>
+
+        <section id="projects" class="card-grid" aria-live="polite">
+            <?php if ($filteredProjects): ?>
+                <?php foreach ($filteredProjects as $project): ?>
+                    <?php
+                    $thumbnail = trim((string) ($project['thumbnail'] ?? ''));
+                    $detailUrl = 'detail.php?id=' . urlencode($project['id']);
+                    ?>
+                    <article class="project-card">
+                        <figure class="project-card__media">
+                            <?php if ($thumbnail !== ''): ?>
+                                <img src="<?= h($thumbnail); ?>" alt="<?= h(($project['title'] ?? 'GAS') . 'のイメージ'); ?>" loading="lazy">
+                            <?php else: ?>
+                                <div class="project-card__placeholder" aria-hidden="true">GAS</div>
+                            <?php endif; ?>
+                        </figure>
+                        <div class="project-card__body">
+                            <p class="project-card__badge"><?= h(formatDate($project['updated_at'] ?? $project['created_at'] ?? '')); ?> 更新</p>
+                            <h3><a href="<?= $detailUrl; ?>"><?= h($project['title']); ?></a></h3>
+                            <p><?= h($project['summary']); ?></p>
+                        </div>
+                        <?php if (!empty($project['tags'])): ?>
+                            <ul class="project-card__tags">
+                                <?php foreach ($project['tags'] as $tag): ?>
+                                    <li>#<?= h($tag); ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+                        <div class="project-card__footer">
+                            <span class="project-card__meta">ID: <?= h($project['id']); ?></span>
+                            <a class="detail-link" href="<?= $detailUrl; ?>">詳しく見る</a>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="empty-state">条件に一致するGASが見つかりませんでした。キーワードやタグを変えてみてください。</p>
+            <?php endif; ?>
+        </section>
+    </div>
+</main>
+<footer class="site-footer">
+    <div class="container">
         <small>管理用ページは <a href="admin.php">こちら</a></small>
-    </footer>
-</div>
+    </div>
+</footer>
 </body>
 </html>

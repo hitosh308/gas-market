@@ -48,6 +48,14 @@ $editId = $isLoggedIn ? trim((string) ($_GET['id'] ?? '')) : '';
 $projectToEdit = ($isLoggedIn && $editId !== '') ? getGasProjectById($projects, $editId) : null;
 $currentOriginalId = $projectToEdit['id'] ?? '';
 
+if ($projectToEdit) {
+    $projectToEdit['thumbnail'] = trim((string) ($projectToEdit['thumbnail'] ?? ''));
+    $projectToEdit['images'] = array_values(array_filter(array_map(
+        static fn ($item) => trim((string) $item),
+        is_array($projectToEdit['images'] ?? null) ? $projectToEdit['images'] : []
+    ), static fn ($item) => $item !== ''));
+}
+
 if ($isLoggedIn && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_project'])) {
     $currentOriginalId = trim((string) ($_POST['original_id'] ?? ''));
     $title = trim((string) ($_POST['title'] ?? ''));
@@ -56,6 +64,8 @@ if ($isLoggedIn && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_p
     $projectIdInput = trim((string) ($_POST['project_id'] ?? ''));
     $updatedAt = trim((string) ($_POST['updated_at'] ?? ''));
     $createdAt = trim((string) ($_POST['created_at'] ?? ''));
+    $thumbnail = trim((string) ($_POST['thumbnail'] ?? ''));
+    $images = textareaLinesToArray((string) ($_POST['images'] ?? ''));
 
     if ($title === '') {
         $formErrors[] = 'タイトルは必須です。';
@@ -83,6 +93,10 @@ if ($isLoggedIn && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_p
         $createdAt = $currentOriginalId !== '' ? ($projectToEdit['created_at'] ?? $updatedAt) : $updatedAt;
     }
 
+    if ($thumbnail === '' && $images !== []) {
+        $thumbnail = $images[0];
+    }
+
     $projectData = [
         'id' => $projectId,
         'title' => $title,
@@ -94,6 +108,8 @@ if ($isLoggedIn && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_p
         'repository_url' => trim((string) ($_POST['repository_url'] ?? '')),
         'updated_at' => $updatedAt,
         'created_at' => $createdAt,
+        'thumbnail' => $thumbnail,
+        'images' => $images,
     ];
 
     if ($formErrors === []) {
@@ -127,6 +143,8 @@ if (!$projectToEdit) {
         'repository_url' => '',
         'updated_at' => date('Y-m-d'),
         'created_at' => date('Y-m-d'),
+        'thumbnail' => '',
+        'images' => [],
     ];
     $currentOriginalId = '';
 }
@@ -239,6 +257,11 @@ $isEditing = $currentOriginalId !== '';
                         <input type="text" name="tags" id="tags" value="<?= h(arrayToCommaList($projectToEdit['tags'])); ?>" placeholder="例: 自動化, Slack連携">
                         <small style="color:var(--muted-text);">カンマ区切りで入力</small>
                     </div>
+                    <div class="form-group">
+                        <label for="thumbnail">サムネイル画像 URL</label>
+                        <input type="url" name="thumbnail" id="thumbnail" value="<?= h($projectToEdit['thumbnail']); ?>" placeholder="例: assets/images/sample.svg">
+                        <small style="color:var(--muted-text);">一覧カードで表示される画像。未入力の場合は下部の画像リストの先頭が利用されます。</small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="description">詳細説明</label>
@@ -247,6 +270,11 @@ $isEditing = $currentOriginalId !== '';
                 <div class="form-group">
                     <label for="features">主な機能 (1行につき1項目)</label>
                     <textarea name="features" id="features" rows="5"><?= h(arrayToTextarea($projectToEdit['features'])); ?></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="images">詳細ページの画像 (1行につき1URL)</label>
+                    <textarea name="images" id="images" rows="4"><?= h(arrayToTextarea($projectToEdit['images'])); ?></textarea>
+                    <small style="color:var(--muted-text);">上から順にギャラリーへ表示されます。</small>
                 </div>
                 <div class="form-grid">
                     <div class="form-group">
