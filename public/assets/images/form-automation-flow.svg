@@ -1,0 +1,30 @@
+<svg width="900" height="600" viewBox="0 0 900 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="fa-flow-bg" x1="0" y1="0" x2="900" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E4F1FF"/>
+      <stop offset="1" stop-color="#F0FFFB"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" rx="40" fill="url(#fa-flow-bg)"/>
+  <g stroke="#3E7BFA" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="150" y="196" width="180" height="160" rx="24" fill="#FFFFFF"/>
+    <rect x="360" y="196" width="180" height="160" rx="24" fill="#FFFFFF"/>
+    <rect x="570" y="196" width="180" height="160" rx="24" fill="#FFFFFF"/>
+    <path d="M330 276H360"/>
+    <path d="M540 276H570"/>
+    <path d="M510 276C540 248 540 304 570 276" stroke-dasharray="14 14"/>
+  </g>
+  <g fill="#A6C5FF">
+    <rect x="180" y="232" width="120" height="16" rx="8"/>
+    <rect x="180" y="262" width="90" height="12" rx="6"/>
+    <rect x="390" y="232" width="120" height="16" rx="8"/>
+    <rect x="390" y="262" width="90" height="12" rx="6"/>
+    <rect x="600" y="232" width="120" height="16" rx="8"/>
+    <rect x="600" y="262" width="90" height="12" rx="6"/>
+  </g>
+  <g opacity="0.35">
+    <circle cx="160" cy="120" r="40" fill="#8FE9FF"/>
+    <circle cx="770" cy="470" r="52" fill="#8FBCFF"/>
+  </g>
+  <path d="M200 420H700" stroke="#4CC9F0" stroke-width="4" stroke-linecap="round" stroke-dasharray="12 18"/>
+</svg>

@@ -1,0 +1,41 @@
+<svg width="900" height="600" viewBox="0 0 900 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="fa-cover-bg" x1="60" y1="0" x2="840" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5B8DEF"/>
+      <stop offset="1" stop-color="#41D2FF"/>
+    </linearGradient>
+    <linearGradient id="fa-cover-card" x1="180" y1="120" x2="720" y2="480" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#E6F2FF" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" rx="36" fill="url(#fa-cover-bg)"/>
+  <g filter="url(#fa-shadow)">
+    <rect x="150" y="110" width="600" height="380" rx="28" fill="url(#fa-cover-card)"/>
+    <rect x="210" y="170" width="480" height="28" rx="14" fill="#D6E7FF"/>
+    <rect x="210" y="218" width="180" height="22" rx="11" fill="#9EC5FF"/>
+    <rect x="210" y="258" width="420" height="64" rx="16" fill="#F5F9FF"/>
+    <rect x="210" y="346" width="290" height="64" rx="16" fill="#EEF6FF"/>
+    <rect x="520" y="346" width="170" height="64" rx="20" fill="#C0E9FF"/>
+    <rect x="210" y="430" width="240" height="28" rx="14" fill="#D6E7FF"/>
+  </g>
+  <g opacity="0.8">
+    <circle cx="760" cy="130" r="46" fill="#FFFFFF" fill-opacity="0.3"/>
+    <circle cx="140" cy="480" r="60" fill="#FFFFFF" fill-opacity="0.2"/>
+    <path d="M120 160C164 150 198 116 208 72" stroke="#ffffff" stroke-opacity="0.35" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g opacity="0.9">
+    <rect x="560" y="186" width="120" height="120" rx="28" fill="#4BC9FF" fill-opacity="0.4"/>
+    <path d="M588 226H652" stroke="#1A6DE0" stroke-width="6" stroke-linecap="round"/>
+    <path d="M588 252H640" stroke="#1A6DE0" stroke-width="6" stroke-linecap="round"/>
+    <path d="M588 278H628" stroke="#1A6DE0" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="624" cy="314" r="12" fill="#1A6DE0"/>
+  </g>
+  <defs>
+    <filter id="fa-shadow" x="90" y="70" width="720" height="460" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feDropShadow dx="0" dy="24" stdDeviation="30" flood-color="#1A3C7D" flood-opacity="0.25"/>
+      <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape"/>
+    </filter>
+  </defs>
+</svg>

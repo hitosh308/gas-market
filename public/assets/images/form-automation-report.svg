@@ -1,0 +1,24 @@
+<svg width="900" height="600" viewBox="0 0 900 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="fa-report-bg" x1="0" y1="0" x2="900" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7FBFF"/>
+      <stop offset="1" stop-color="#E6F6FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" rx="40" fill="url(#fa-report-bg)"/>
+  <rect x="180" y="140" width="540" height="360" rx="28" fill="#FFFFFF" stroke="#B6D9FF" stroke-width="4"/>
+  <rect x="230" y="190" width="160" height="28" rx="14" fill="#D7E8FF"/>
+  <rect x="230" y="240" width="440" height="18" rx="9" fill="#EEF4FF"/>
+  <rect x="230" y="280" width="440" height="18" rx="9" fill="#EEF4FF"/>
+  <rect x="230" y="320" width="440" height="18" rx="9" fill="#EEF4FF"/>
+  <g transform="translate(230 360)">
+    <rect x="0" y="0" width="420" height="160" rx="20" fill="#F5FAFF"/>
+    <path d="M36 118L120 60L180 96L252 36L324 86L384 42" stroke="#4F9FFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M60 120C60 126.627 54.6274 132 48 132C41.3726 132 36 126.627 36 120C36 113.373 41.3726 108 48 108C54.6274 108 60 113.373 60 120Z" fill="#4F9FFF"/>
+    <path d="M144 72C144 78.6274 138.627 84 132 84C125.373 84 120 78.6274 120 72C120 65.3726 125.373 60 132 60C138.627 60 144 65.3726 144 72Z" fill="#4F9FFF"/>
+    <path d="M204 108C204 114.627 198.627 120 192 120C185.373 120 180 114.627 180 108C180 101.373 185.373 96 192 96C198.627 96 204 101.373 204 108Z" fill="#4F9FFF"/>
+    <path d="M276 48C276 54.6274 270.627 60 264 60C257.373 60 252 54.6274 252 48C252 41.3726 257.373 36 264 36C270.627 36 276 41.3726 276 48Z" fill="#4F9FFF"/>
+  </g>
+  <circle cx="720" cy="160" r="50" fill="#B6E9FF" fill-opacity="0.4"/>
+  <circle cx="190" cy="470" r="40" fill="#7FD8FF" fill-opacity="0.3"/>
+</svg>
